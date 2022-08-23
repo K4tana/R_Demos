@@ -67,9 +67,11 @@ for (i in length(images):1){
   x <- image_scale(x, "600")
   c(x,frames)-> frames
 }
-#The code below produces various images showing neighboring t-tests of different normal distribution draws in a boxplot. 
-#This image demonstrates two things: Firstly, it shows how different standard deviations make boxplots wider. Secondly, it shows how false positives can still affect high N samples. Each variable's n is shown in the picture. Yet, over all images, about 5% of tests show a false positive result - a tiny bit below our expected alpha of 5%. Thus, this is acceptable. 
-#
+#The code below produces various images showing neighboring t-tests of different normal distribution draws in a boxplot. This image demonstrates three things:
+# Firstly, it shows how different standard deviations make boxplots wider. IV_1 shows a standard deviation of 1, while IV_8 shows a standard deviation of 8.  
+#Secondly, it shows how false positives can still affect tests in high N samples through random interference. Each variable's n is shown in the picture. Since the samples are constructed with standard deviations which are 1 apart for any neighbor, there are no significant differences to be expected for neighbors.  Yet, over all images, a few tests show a false positive result - overall a tiny bit below our expected alpha of 5%. Thus, this is acceptable in the context. Lesson: Beware of false positives! 
+#Thirdly: Outliers do influence analysis results, including significance. Watch out for them and include them in your interpretation of the data.
+
 animation <- image_animate(frames, fps = 1)
 
 #save it.
