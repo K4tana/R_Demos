@@ -1,7 +1,6 @@
 #Visualization of Boxplots to get a bit of a feeling what they mean.
 #Load packages
 library(tidyverse)
-library(gganimate)
 library(reshape2)
 library(ggsignif)
 library(magick)
@@ -58,6 +57,7 @@ for(i in 1:20){
          width = 10, height = 10, 
          units = "cm")
   images[[i]] <- name
+  rm(a,b)
 }
 
 #this creates a list to animate from. Order from last to first has to be done for some reason unknown to me. 
