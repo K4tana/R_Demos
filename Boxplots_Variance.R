@@ -5,9 +5,6 @@ library(reshape2)
 library(ggsignif)
 library(magick)
 
-#set seed for random sampling
-set.seed(1337)
-
 #defining regular expressions for ggplot: 
 apatheme <- theme(panel.background = element_blank(),
                   panel.grid = element_blank(), 
@@ -22,7 +19,7 @@ iv_vec <- c("IV_1","IV_2","IV_3","IV_4","IV_5","IV_6","IV_7","IV_8")
 source("https://raw.githubusercontent.com/K4tana/R_Helpers/master/neigh_combinator.R")
 
 #combinations to t-test in a list
-combs <- uniq_combinator(iv_vec)
+combs <- neigh_combinator(iv_vec)
 comb_list <- list()
 for (i in 1:nrow(combs)){
   a <- c(unname(unlist(combs[i,])))
@@ -31,6 +28,9 @@ for (i in 1:nrow(combs)){
 
 #create a data frame + plot + significance tests for neighboring variables. Do this for all N from 50 to 1000 in 50 increments. save plots as files and reference in a list.
 images <- list()
+#set seed for random sampling
+set.seed(1337)
+#random sampling and plotting
 for(i in 1:20){
   a <- data.frame(IV_1 = c(rnorm(i*50, mean = 2, sd= 1)),
              IV_2 = c(rnorm(i*50, mean = 2, sd= 2)), 
@@ -45,8 +45,9 @@ for(i in 1:20){
   b <- ggplot(a, aes(x=variable, y=value))+
     geom_boxplot(aes(fill = variable))+
     apatheme +
+    scale_y_continuous(limits=c(-38, 38))+
     geom_hline(yintercept = 2)+
-    labs(x="Variable", y= "Value", caption = paste0("Observations per variable:",i*50, sep=" "))+
+    labs(x="Variable", y= "Value", caption = paste0("Observations per variable: ",i*50))+
     theme(legend.position = "none")+
     geom_signif(comparisons = comb_list, map_signif_level = c("***"=0.001, "**"=0.01, "*"=0.05,"ns">0.05))
   
