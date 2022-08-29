@@ -41,7 +41,8 @@ p <- ggplot(data = dat, aes(x=Age, y= Prob, color= Pclass))+
 #-------------------------------------------------------------------
 #Multiple linear Regression (MLR)
 
-#this is easier. Since you work with metric data, interpretation of beta-weights is more intuitive. Let's look at a common MLR that includes a factorial predictor with 3 levels and a metric predictor combined with an interaction of both. 
+#this is easier. Since you work with metric data, interpretation of beta-weights is more intuitive. Let's look at a common MLR that includes a factorial predictor with 3 levels and a metric predictor.
+#If needed, install the used package beforehand with the following command: 
 #install.packages("car")
 
 library(car)
@@ -70,7 +71,7 @@ ggplot(dat, aes(x = scale(cyl), y= scale(hp), color = gear))+
 
 #we can see the regression graphs and also an interesting relationship in the data: Three-geared cars do not have many cylinders, while four- and five-geared cars have more. This gives rise to the notion that Gears and Cylinders could have an interaction effect: The more cylinders you have, the more gears you would need to drive efficiently (or vice versa, strictly speaking).
 #Obviously, you could have deduced this from theory/prior knowledge beforehand and added it to the initial model. Let's pretend we know nothing about cars for now.
-#let's test this hypothesis and also omit weight with a new model, as it did not prove significant at alpha = 0.05. We predict that the new model performs better in terms of goodness of fit and has a significant interaction effect:
+#Now test this hypothesis and also omit weight with a new model, as it did not prove significant at alpha = 0.05. We predict that the new model performs better in terms of goodness of fit and has a significant interaction effect:
 
 fit4 <- lm(data=dat, scale(hp)~scale(cyl)+gear + scale(cyl)*gear)
 summary(fit4)
