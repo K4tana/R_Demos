@@ -45,11 +45,11 @@ for(i in 1:20){
   b <- ggplot(a, aes(x=variable, y=value))+
     geom_boxplot(aes(fill = variable))+
     apatheme +
-    scale_y_continuous(limits=c(-38, 38))+
+    scale_y_continuous(limits=c(-40, 40))+
     geom_hline(yintercept = 2)+
     labs(x="Variable", y= "Value", caption = paste0("Observations per variable: ",i*50))+
     theme(legend.position = "none")+
-    geom_signif(comparisons = comb_list, map_signif_level = c("***"=0.001, "**"=0.01, "*"=0.05,"ns">0.05))
+    geom_signif(comparisons = comb_list, map_signif_level = c("***"=0.001, "**"=0.01, "*"=0.05,"ns">=0.05))
   
   name <- paste0("plot",i*50,".png")
   ggsave(filename = name,
